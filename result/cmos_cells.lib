@@ -1,0 +1,35 @@
+library(array_multiplier_lib) {
+    cell(AND2) {
+        area: 4;
+        pin(A) { direction: input; }
+        pin(B) { direction: input; }
+        pin(Y) { direction: output; function: "A * B"; }
+    }
+
+    cell(FA) { // Full Adder
+        area: 10;
+        pin(A) { direction: input; }
+        pin(B) { direction: input; }
+        pin(Cin) { direction: input; }
+        pin(Sum) { direction: output; function: "A ^ B ^ Cin"; }
+        pin(Cout) { direction: output; function: "(A & B) | (Cin & (A ^ B))"; }
+    }
+
+    cell(DFF) {
+        area: 18;
+        ff(IQ, IQN) { clocked_on: C; next_state: D; }
+        pin(C) { direction: input; clock: true; }
+        pin(D) { direction: input; }
+        pin(Q) { direction: output; function: "IQ"; }
+    }
+    
+    cell(DFFSR) {
+        area: 18;
+        ff(IQ, IQN) { clocked_on: C; next_state: D; preset: S; clear: R; }
+        pin(C) { direction: input; clock: true; }
+        pin(D) { direction: input; }
+        pin(Q) { direction: output; function: "IQ"; }
+        pin(S) { direction: input; }
+        pin(R) { direction: input; }
+    }
+}

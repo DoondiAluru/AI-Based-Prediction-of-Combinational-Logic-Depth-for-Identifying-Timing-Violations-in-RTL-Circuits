@@ -1,0 +1,28 @@
+# Read standard cell library
+read_liberty -lib cmos_cells.lib
+
+# Read Verilog design
+read_verilog design.sv
+
+# Perform synthesis
+synth -top array_multiplier_4bit
+
+# Map D flip-flops to the library
+dfflibmap -liberty cmos_cells.lib
+
+# Optimize and clean up design
+opt_clean
+clean
+flatten
+
+# Display statistics
+stat -liberty cmos_cells.lib
+
+# Write the synthesized Verilog design
+write_verilog -noattr synth.v
+
+# Generate an SVG visualization of the synthesized circuit with colors
+show -colors 42 -format svg -prefix synth_colored
+
+# Export the SVG for download
+write_file synth_colored.svg
